@@ -4,7 +4,7 @@ import subprocess
 import glob
 from IPython.display import Image, display
 
-def get_latest_folder(base_dir, prefix='train'):
+def get_latest_folder(base_dir, prefix='predict'):
     folders = [f for f in os.listdir(base_dir) if f.startswith(prefix) and os.path.isdir(os.path.join(base_dir, f))]
     if not folders:
         raise FileNotFoundError(f'Không tìm thấy folder bắt đầu bằng "{prefix}" trong {base_dir}')
@@ -16,25 +16,19 @@ def get_latest_folder(base_dir, prefix='train'):
     folders.sort(key=extract_number, reverse=True)
     return os.path.join(base_dir, folders[0])
 
-# Lấy folder train mới nhất
-train_dir = get_latest_folder('/content/YOLO/runs/detect', 'train')
-best_pt_path = os.path.join(train_dir, 'weights/best.pt')
-val_images = '/content/YOLO/data/validation/images'
-
-# Chạy lệnh predict
-subprocess.run([
-    'yolo',
-    'predict',
-    f'model={best_pt_path}',
-    f'source={val_images}',
-    'save=True'
-])
-
-# Lấy folder predict mới nhất
+# Lấy đường dẫn predict mới nhất
 predict_dir = get_latest_folder('/content/YOLO/runs/detect', 'predict')
 
-# In và hiển thị ảnh .jpg
-jpg_files = glob.glob(os.path.join(predict_dir, '*.jpg'))
+# In đường dẫn kiểm tra
+print("📂 Predict dir:", predict_dir)
 
-for file in jpg_files:
-    display(Image(filename=file))
+# Tìm ảnh trong thư mục con /images nếu có
+jpg_files = glob.glob(os.path.join(predict_dir, 'images', '*.jpg'))  # hoặc predict_dir nếu không có images/
+
+# Kiểm tra có ảnh không
+if not jpg_files:
+    print("❌ Không tìm thấy ảnh .jpg trong folder.")
+else:
+    print(f"✅ Tìm thấy {len(jpg_files)} ảnh. Hiển thị:")
+    for file in jpg_files:
+        display(Image(filename=file))
