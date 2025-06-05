@@ -3,6 +3,7 @@ import re
 import subprocess
 import glob
 from IPython.display import Image, display
+from PIL import Image as PILImage
 
 def get_latest_folder(base_dir, prefix='predict'):
     folders = [f for f in os.listdir(base_dir) if f.startswith(prefix) and os.path.isdir(os.path.join(base_dir, f))]
