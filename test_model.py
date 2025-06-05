@@ -23,7 +23,7 @@ predict_dir = get_latest_folder('/content/YOLO/runs/detect', 'predict')
 print("📂 Predict dir:", predict_dir)
 
 # Tìm ảnh trong thư mục con /images nếu có
-jpg_files = glob.glob(os.path.join(predict_dir, 'images', '*.jpg'))  # hoặc predict_dir nếu không có images/
+jpg_files = glob.glob(os.path.join(predict_dir, '*.jpg'))
 
 # Kiểm tra có ảnh không
 if not jpg_files:
