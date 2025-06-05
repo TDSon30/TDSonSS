@@ -8,7 +8,7 @@ def get_latest_folder(base_dir, prefix='train'):
     folders = [f for f in os.listdir(base_dir) if f.startswith(prefix) and os.path.isdir(os.path.join(base_dir, f))]
     if not folders:
         raise FileNotFoundError(f'Không tìm thấy folder bắt đầu bằng "{prefix}" trong {base_dir}')
-    
+
     def extract_number(name):
         match = re.match(rf'{prefix}(\d*)', name)
         return int(match.group(1)) if match and match.group(1).isdigit() else 0
