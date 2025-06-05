@@ -38,3 +38,8 @@ def create_data_yaml(path_to_classes_txt, path_to_data_yaml):
 path_to_classes_txt = '/content/YOLO/custom_data/classes.txt'
 path_to_data_yaml = '/content/YOLO/data.yaml'
 create_data_yaml(path_to_classes_txt, path_to_data_yaml)
+
+with open('/content/YOLO/data.yaml', 'r') as f:
+    data = yaml.safe_load(f)
+
+print(data)
