@@ -31,4 +31,5 @@ if not jpg_files:
 else:
     print(f"✅ Tìm thấy {len(jpg_files)} ảnh. Hiển thị:")
     for file in jpg_files:
-        display(Image(filename=file))
+        img = PILImage.open(file)
+        display(img)  # PIL + display sẽ chắc chắn hoạt động
